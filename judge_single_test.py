@@ -9,9 +9,9 @@ if __name__ == '__main__':
             "seccomp_rule": "c_cpp",
             "env": []
         },
-        exe_path="/judger/run/00000/main.o",
+        exe_path="/judger/run/00000/main",
         max_cpu_time=3000,
-        max_memory=1048576,
+        max_memory=134217728,
         problem_id='test',
         runner_id='00000'
     )

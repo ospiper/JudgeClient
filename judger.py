@@ -35,27 +35,34 @@ runner_config: {
 }
 """
 @dramatiq.actor
-def judge(judge_conf):
+def judge(judge_id,
+          problem_id,
+          user_id,
+          code,
+          compiler,
+          max_cpu_time,
+          max_memory,
+          compiler_config,
+          runner_config):
     try:
-        conf = json.loads(judge_conf)
         # ARGS CHECK HERE
         # PREPARE FOR JUDGING
         runner_id = str(uuid.uuid4().hex)
         runner_dir = os.path.join(JUDGER_WORKSPACE_BASE, runner_id)
         os.makedirs(runner_dir)
-        src_path = os.path.join(runner_dir, conf['compiler_config']['src_name'])
+        src_path = os.path.join(runner_dir, compiler_config['src_name'])
         with open(src_path, 'w', encoding='utf-8') as code:
-            code.write(conf['code'])
+            code.write(code)
         # COMPILE
 
-        exe_path = Compiler.compile(conf['compiler_config'], src_path, runner_dir)
+        exe_path = Compiler.compile(compiler_config, src_path, runner_dir)
         # CHECK COMPILE ERROR
         client = JudgeClient(
-            run_config=conf['runner_config'],
+            run_config=runner_config,
             exe_path=exe_path,
-            max_cpu_time=conf['max_cpu_time'],
-            max_memory=conf['max_memory'],
-            problem_id=conf['problem_id'],
+            max_cpu_time=max_cpu_time,
+            max_memory=max_memory,
+            problem_id=problem_id,
             runner_id=runner_id
         )
         result = client.judge()

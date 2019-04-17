@@ -9,12 +9,18 @@ from exception import CompileError
 class Compiler:
     @staticmethod
     def compile(compile_config, src_path, output_dir):
+        print(compile_config)
+        print(src_path)
+        print(output_dir)
         command = compile_config["compile_command"]
         exe_path = os.path.join(output_dir, compile_config["exe_name"])
         command = command.format(src_path=src_path, exe_dir=output_dir, exe_path=exe_path)
         compiler_out = os.path.join(output_dir, "compiler.out")
         _command = command.split(" ")
 
+        print(command)
+        print(compiler_out)
+        print()
         os.chdir(output_dir)
         result = _judger.run(max_cpu_time=compile_config["max_cpu_time"],
                              max_real_time=compile_config["max_cpu_time"] * 3,
@@ -34,6 +40,8 @@ class Compiler:
                              uid=COMPILER_USER_UID,
                              gid=COMPILER_GROUP_GID)
 
+        print("[COMPILE RESULT]")
+        print(result)
         if result["result"] != _judger.RESULT_SUCCESS:
             if os.path.exists(compiler_out):
                 with open(compiler_out, encoding="utf-8") as f:
