@@ -11,6 +11,7 @@ RESULT_REAL_TIME_LIMIT_EXCEEDED = 2
 RESULT_MEMORY_LIMIT_EXCEEDED = 3
 RESULT_RUNTIME_ERROR = 4
 RESULT_SYSTEM_ERROR = 5
+RESULT_COMPILE_ERROR = 6
 
 ERROR_INVALID_CONFIG = -1
 ERROR_FORK_FAILED = -2
@@ -77,8 +78,8 @@ def run(max_cpu_time,
     if seccomp_rule_name:
         proc_args.append("--seccomp_rule={}".format(seccomp_rule_name))
 
-    print("[JUDGER ARGS]")
-    print(json.dumps(proc_args))
+    # print("[JUDGER ARGS]")
+    # print(json.dumps(proc_args))
     proc = subprocess.Popen(proc_args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = proc.communicate()
     if err:

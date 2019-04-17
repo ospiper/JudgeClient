@@ -8,7 +8,7 @@ from multiprocessing import Pool
 
 import psutil
 
-from config import TEST_CASE_DIR, JUDGER_WORKSPACE_BASE, JUDGER_RUN_LOG_PATH, RUN_GROUP_GID, RUN_USER_UID, SPJ_EXE_DIR, RUN_GROUP_GID
+from judger_config import TEST_CASE_DIR, JUDGER_WORKSPACE_BASE, JUDGER_RUN_LOG_PATH, RUN_GROUP_GID, RUN_USER_UID, SPJ_EXE_DIR, RUN_GROUP_GID
 from exception import JudgeClientError
 # from utils import ProblemIOMode
 
@@ -70,6 +70,7 @@ subtasks: [
 ]
 
 """
+
 
 class JudgeClient:
     def __init__(self, run_config, exe_path, max_cpu_time, max_memory, problem_id,
@@ -169,11 +170,3 @@ class JudgeClient:
         for subtask in self.judge_info['subtasks']:
             ret.append(self.judge_subtask(subtask))
         return ret
-
-    """
-    def __getstate__(self):
-        # http://stackoverflow.com/questions/25382455/python-notimplementederror-pool-objects-cannot-be-passed-between-processes
-        self_dict = self.__dict__.copy()
-        del self_dict["_pool"]
-        return self_dict
-    """

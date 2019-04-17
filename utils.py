@@ -6,7 +6,7 @@ import socket
 
 import psutil
 
-from config import SERVER_LOG_PATH
+from judger_config import SERVER_LOG_PATH
 from exception import JudgeClientError
 
 logger = logging.getLogger(__name__)

@@ -6,7 +6,7 @@ import os
 import shutil
 from compiler import Compiler
 from JudgeClient import JudgeClient
-from config import TEST_CASE_DIR, JUDGER_WORKSPACE_BASE
+from judger_config import TEST_CASE_DIR, JUDGER_WORKSPACE_BASE
 
 runner_id = '00001'
 compiler_config = {
